@@ -1,0 +1,94 @@
+
+
+#brillo{
+    -webkit-box-shadow: 10px 0px 300px 70px #dfe7d9;
+    -moz-box-shadow: 10px 0px 300px 70px #bccfcd;
+    box-shadow: 10px 0px 300px 70px #cad4d3;
+    
+    position: absolute; /* Asegura que el transform funcione */
+    transform: translateY(10vh) translateX(4vh);
+}
+
+#img-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  #img-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%; /* Ajusta la altura del degradado */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none; /* Evita que el degradado interfiera con la interacción */
+  }
+  
+#btn{
+    background: rgb(4,212,190);
+    background: linear-gradient(90deg, rgba(4,212,190,1) 0%, rgba(26,88,252,1) 100%);
+    transition-duration: 8s;
+}
+
+#btn:hover{
+    background: rgb(4,212,190);
+    background: linear-gradient(90deg, rgba(4,212,190,1) 0%, rgba(4,212,190,1) 60%, rgba(26,88,252,1) 100%);
+    transition-duration: 2s;
+}
+
+#secondBrillo{
+    -webkit-box-shadow: 10px 0px 300px 100px #04d4be;
+    -moz-box-shadow: 10px 0px 300px 100px #04d4be;
+    box-shadow: 10px 0px 300px 100px #04d4be;
+    
+    position: absolute; /* Asegura que el transform funcione */
+    transform: translateY(-0.4vh) translateX(100vh);
+}
+
+label{
+    color: white
+}
+
+input{
+    color: white;
+    padding: 6px;
+}
+
+textarea{
+    padding: 6px;
+}
+
+#brillo{
+    -webkit-box-shadow: 10px 0px 300px 70px #dfe7d9;
+    -moz-box-shadow: 10px 0px 300px 70px #bccfcd;
+    box-shadow: 10px 0px 300px 70px #cad4d3;
+    
+    position: absolute; /* Asegura que el transform funcione */
+    transform: translateY(10vh) translateX(4vh);
+}
+
+#img-container {
+    position: relative;
+    display: inline-block;
+  }
+  
+  #img-container::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 50%; /* Ajusta la altura del degradado */
+    background: linear-gradient(to top, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0) 100%);
+    pointer-events: none; /* Evita que el degradado interfiera con la interacción */
+  }
+  
+#brilloAzul {
+    -webkit-box-shadow: 10px 0px 300px 190px #04d4be;
+-moz-box-shadow: 10px 0px 300px 190px #04d4be;
+box-shadow: 10px 0px 300px 190px #04d4be;
+
+position: absolute; /* Asegura que el transform funcione */
+transform: translateY(90%) translateX(-90%);
+}

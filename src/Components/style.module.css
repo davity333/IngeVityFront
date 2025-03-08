@@ -1,0 +1,44 @@
+#btn{
+    background: rgb(4,212,190);
+    background: linear-gradient(90deg, #04d4be 0%, rgba(26,88,252,1) 100%);
+    transition-duration: 8s;
+}
+
+#btnLogout{
+  background: rgb(4,96,212);
+  background: linear-gradient(90deg, rgba(4,96,212,1) 12%, rgba(46,130,121,1) 60%, rgba(26,68,252,1) 100%);
+  transition-duration: 8s;
+}
+
+#btnLogout:hover{
+  background: rgb(28,93,176);
+  background: linear-gradient(90deg, rgba(28,93,176,1) 21%, rgba(18,92,84,1) 57%, rgba(40,64,172,1) 100%);
+}
+
+#btn:hover{
+    background: rgb(4,212,190);
+    background: linear-gradient(90deg, rgba(4,212,190,1) 0%, rgba(4,212,190,1) 60%, rgba(26,88,252,1) 100%);
+    transition-duration: 2s;
+}
+
+#btnBorder {
+    border: 2px solid transparent; /* Borde transparente */
+    background: transparent; /* Sin color de fondo */
+    border-radius: 0px; /* Borde no redondeado inicialmente */
+    border-image: linear-gradient(90deg, rgba(4,212,190,1) 0%, rgba(26,88,252,1) 100%);
+    border-image-slice: 1;
+  }
+  
+  #btnBorder:hover {
+    background: linear-gradient(90deg, rgba(4, 212, 191, 0.659) 0%, rgba(4, 212, 191, 0.637) 60%, rgba(26,88,252,1) 100%);
+    cursor: pointer;
+  }
+  
+#brillo {
+    -webkit-box-shadow: 10px 0px 300px 190px #04d4be;
+-moz-box-shadow: 10px 0px 300px 190px #04d4be;
+box-shadow: 10px 0px 300px 190px #04d4be;
+
+position: relative; /* Asegura que el transform funcione */
+transform: translateY(-220%) translateX(-60%);
+}

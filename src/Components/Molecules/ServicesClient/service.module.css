@@ -1,0 +1,18 @@
+#border{
+    border: 2px solid transparent; /* Borde transparente */
+    background: transparent; /* Sin color de fondo */
+    border-radius: 0px; /* Borde no redondeado inicialmente */
+    border-image: linear-gradient(90deg, rgba(4, 212, 191, 0.537) 0%, rgba(26,88,252,1) 100%);
+    border-image-slice: 1;
+}
+
+#btn{
+    background: rgb(4,212,190);
+    background: linear-gradient(90deg, rgba(4,212,190,1) 0%, rgba(26,88,252,1) 100%);
+}
+
+#btn:hover{
+    background: rgb(4,212,190);
+    background: linear-gradient(90deg, rgba(4,212,190,1) 0%, rgba(4,212,190,1) 60%, rgba(26,88,252,1) 100%);
+    transition-duration: 2s;
+}
