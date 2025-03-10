@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from '../Login/form.module.css';
-
+import Swal from 'sweetalert2'
 function FormRegister() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     nombre: "",
     email: "",
-    password: ""
+    password: "",
+    rol: "user"
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -25,11 +26,11 @@ function FormRegister() {
     setLoading(true);
     console.log("Datos enviados a la API:", formData);
 
-    // Filtrar solo los atributos correctos
     const cleanData = {
       nombre: formData.nombre,
       email: formData.email,
-      password: formData.password
+      password: formData.password,
+      rol: formData.rol
     };
 
     console.log("Datos limpios enviados a la API:", cleanData);
@@ -40,7 +41,7 @@ function FormRegister() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(cleanData) // Solo enviamos los campos correctos
+        body: JSON.stringify(cleanData)
       });
 
       const data = await response.json();
@@ -49,7 +50,11 @@ function FormRegister() {
         throw new Error(data.error || "Error al registrar usuario");
       }
 
-      alert("Registro exitoso 🎉 ¡Redirigiéndote al login!");
+      Swal.fire({
+        title: "Registro exitoso 🎉 ¡Redirigiéndote al login!",
+        icon: "success",
+        draggable: true
+      });
       navigate("/login");
 
     } catch (err) {

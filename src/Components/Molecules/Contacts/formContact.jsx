@@ -2,7 +2,7 @@ import style from '../../Molecules/Contacts/contacts.module.css';
 import davity from '/davity.png';
 import userImage from "/user.png";
 import React, { useState, useEffect } from "react";
-
+import Swal from 'sweetalert2';
 function FormContact() {
   const [user, setUser] = useState(null);
   const [name, setName] = useState('');
@@ -41,7 +41,7 @@ function FormContact() {
     };
 
     try {
-      const response = await fetch('http://localhost:8080/v1/service/createService', {
+      const response = await fetch('http://localhost:8080/v1/service/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -56,7 +56,11 @@ function FormContact() {
       const result = await response.json();
       console.log('Respuesta de la API:', result);
       setIsSubmitting(false);
-      alert('Mensaje enviado correctamente');
+      Swal.fire({
+              title: "Mensaje enviado correctamente",
+              icon: "success",
+              draggable: true
+            });
       setName('');
       setEmail('');
       setTitle('');

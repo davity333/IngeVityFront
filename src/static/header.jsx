@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import logo from "/logo.png";
+import loading from "/loading.png";
 import style from "../Components/style.module.css";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [black, setBlack] = useState(false);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -39,17 +41,19 @@ function Header() {
   };
 
   const handleLogout = () => {
-    // Limpiar el localStorage y actualizar el estado
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
-    setUser(null);
-    navigate("/"); // Redirigir al home después de cerrar sesión
+    setBlack(true); 
+    setTimeout(() => {
+      localStorage.removeItem("user");
+      localStorage.removeItem("token");
+      setUser(null);
+      setBlack(false); // Desactivar la pantalla de carga
+      navigate("/");
+    }, 2000);
   };
 
   return (
     <header className="bg-black text-white pl-28 pr-28 pt-10">
       <div className="flex items-center justify-between">
-        {/* Logo e "Home" */}
         <div className="flex items-center space-x-4">
           <img src={logo} alt="Logo" className="w-30" />
           <p
@@ -60,7 +64,6 @@ function Header() {
           </p>
         </div>
 
-        {/* Menú de navegación */}
         <nav className="flex items-center space-x-16 text-lg">
           <p
             onClick={goToContacts}
@@ -79,14 +82,22 @@ function Header() {
           </p>
         </nav>
 
-        {/* Botones de Login y Registro o el nombre del usuario y Cerrar sesión */}
         <div className="flex space-x-4">
           {user ? (
-            // Si el usuario está logueado, mostrar su nombre y el botón de cerrar sesión
             <>
-            <div className="flex items-center">
-              <p className="text-[2.4vh] font-bold">{user.nombre}</p>
-            </div>
+              <div className="flex items-center flex-col leading-4 mt-1">
+                <p className="text-[2.4vh] font-bold">{user.nombre}</p>
+                <p className="text-[2.4vh] ">{user.rol}</p>
+              </div>
+              {user.rol === "admin" && (
+                <button
+                  id={style.btnBorder}
+                  onClick={goToClients}
+                  className="px-3"
+                >
+                  Solicitudes
+                </button>
+              )}
               <button
                 onClick={handleLogout}
                 className="p-2 px-5 rounded-2xl text-white duration-500"
@@ -96,16 +107,7 @@ function Header() {
               </button>
             </>
           ) : (
-            // Si el usuario no está logueado, mostrar los botones de Login y Registro
             <>
-              <button
-                id={style.btnBorder}
-                onClick={goToClients}
-                className="px-3"
-              >
-                Solicitudes
-              </button>
-
               <button
                 id={style.btnBorder}
                 onClick={goToLogin}
@@ -124,6 +126,12 @@ function Header() {
           )}
         </div>
       </div>
+      {black && (
+        <div className="fixed flex-col inset-0 bg-black bg-opacity-75 flex justify-center items-center">
+          <img src={loading} alt="Loading" className="w-10 animate-spin" />
+          <p className="text-white text-2xl">Cerrando sesión...</p>
+        </div>
+      )}
     </header>
   );
 }

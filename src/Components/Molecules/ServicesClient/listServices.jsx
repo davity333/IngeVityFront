@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import style from "../../Molecules/ServicesClient/service.module.css";
+import Modal from "./modal";
 
 function ListService() {
   const [services, setServices] = useState([]);
-  const [showForm, setShowForm] = useState(null); // Estado para manejar la visibilidad del formulario
+  const [showForm, setShowForm] = useState(null); 
   const [formData, setFormData] = useState({
     titulo: "",
     mensaje: "",
     idUser: null,
     nombre: "",
   });
+  const [modal, setModal] = useState(false); 
+  const [selectedUser, setSelectedUser] = useState({ idUser: null, nombre: "" }); // Nuevo estado para el usuario seleccionado
 
   useEffect(() => {
-    // Función para obtener los servicios
     const fetchServices = async () => {
       try {
         const response = await fetch("http://localhost:9090/v1/service/list");
@@ -32,6 +34,8 @@ function ListService() {
   const handleShowForm = (idUser, nombre) => {
     setShowForm(idUser);
     setFormData({ ...formData, idUser, nombre });
+    setModal(true);
+    setSelectedUser({ idUser, nombre }); // Actualiza el usuario seleccionado
   };
 
   const handleInputChange = (e) => {
@@ -57,6 +61,7 @@ function ListService() {
       alert("Mensaje enviado con éxito");
       setFormData({ titulo: "", mensaje: "", idUser: null, nombre: "" });
       setShowForm(null);
+      setModal(false); // Cerrar el modal
     } catch (error) {
       console.error("Error al enviar el mensaje:", error);
     }
@@ -111,41 +116,8 @@ function ListService() {
           </tbody>
         </table>
       </section>
-      
-      {showForm && (
-        <section className="flex justify-center items-center mt-10">
-          <div className="bg-gray-800 p-6 rounded-lg shadow-md w-full max-w-md">
-            <h2 className="text-2xl font-semibold text-white mb-4">
-              Enviar mensaje a {formData.nombre}
-            </h2>
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-              <input
-                type="text"
-                name="titulo"
-                value={formData.titulo}
-                onChange={handleInputChange}
-                placeholder="Título"
-                className="p-2 border rounded text-black"
-                required
-              />
-              <textarea
-                name="mensaje"
-                value={formData.mensaje}
-                onChange={handleInputChange}
-                placeholder="Mensaje"
-                className="p-2 border rounded text-black"
-                required
-              />
-              <button
-                type="submit"
-                className="p-2 rounded-lg text-white bg-blue-600"
-              >
-                Enviar
-              </button>
-            </form>
-          </div>
-        </section>
-      )}
+
+      {modal && <Modal onClick={() => setModal(false)} idUser={selectedUser.idUser} nombre={selectedUser.nombre} />} {/* Pasar los datos del usuario seleccionado */}
     </>
   );
 }

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from '../Login/form.module.css';
-
+import Swal from "sweetalert2";
 function FormLogin() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
@@ -43,15 +43,19 @@ function FormLogin() {
         throw new Error(data.error || "Error al iniciar sesión");
       }
 
-      const { email, nombre } = data.data.attributes;
-      const { id } = data.data;
+      const { email, nombre} = data.data.attributes;
+      const { id, rol } = data.data;
       const token = data.token;
 
       localStorage.setItem("token", token);
 
-      localStorage.setItem("user", JSON.stringify({ email, nombre, id }));
+      localStorage.setItem("user", JSON.stringify({ email, nombre, id, rol }));
 
-      alert("Inicio de sesión exitoso 🎉 ¡Redirigiéndote al inicio!");
+      Swal.fire({
+        title: "Inicio de sesión exitoso 🎉 ¡Redirigiéndote al inicio!",
+        icon: "success",
+        draggable: true
+      });
       navigate("/"); 
 
     } catch (err) {
@@ -73,10 +77,8 @@ function FormLogin() {
     >
       <h2 className="text-2xl font-bold text-center mb-4 text-white">Login</h2>
 
-      {/* Mensaje de error */}
       {error && <p className="text-red-500 text-center">{error} Datos incorrectos</p>}
 
-      {/* Campo de correo electrónico */}
       <div className="mb-5 mt-5">
         <label htmlFor="email" className="block text-[#efe8e8] text-sm font-semibold mb-1">
           Correo electrónico
@@ -112,7 +114,7 @@ function FormLogin() {
         />
       </div>
 
-      {/* Botón de ingreso */}
+
       <button
         type="submit"
         className="w-full text-white font-bold py-2 px-4 rounded-lg transition duration-300 cursor-pointer"
